@@ -2,8 +2,8 @@ name: 刷步数
 
 on:
   schedule:
-    # 这里的 0 1 代表 UTC 时间凌晨 1 点（北京时间早上 9 点）
-    - cron: '0 1 * * *'
+    # 这里的 0 17 代表 UTC 时间下午 17 点（对应北京时间第二天凌晨 1 点）
+    - cron: '0 17 * * *'
   workflow_dispatch:
 
 jobs:
@@ -24,11 +24,11 @@ jobs:
         with:
           python-version: '3.14'
 
-      # 👇 随机延迟步骤
+      # 👇 随机延迟步骤 (控制在 0-5 分钟内)
       - name: Random Delay (随机延迟)
         run: |
-          # 随机生成 0 到 7200 秒（即 0 到 2 小时）的延迟时间
-          DELAY=$(( RANDOM % 7200 ))
+          # 随机生成 0 到 300 秒（即 0 到 5 分钟）的延迟时间
+          DELAY=$(( RANDOM % 300 ))
           echo "本次任务将随机等待 ${DELAY} 秒 (约 $(( DELAY / 60 )) 分钟) 后执行..."
           sleep $DELAY
           
